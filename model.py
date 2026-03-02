@@ -39,8 +39,28 @@ def generate_data(n_samples):
 df = generate_data(N)
 print(df.head(10))
 
-# Prepare data for modeling (SPLIT TRAIN / TEST)
+# Preparing data for modeling (SPLIT TRAIN / TEST)
 X = df[["login_attempts", "failed_attempts", "failed_ratio",
         "avg_time_between", "ip_change_frequency"]]
 y = df["label"]
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Training the Model
+model = RandomForestClassifier(
+    n_estimators=100,
+    max_depth=10,
+    random_state=42
+)
+model.fit(X_train, y_train)
+print("Model trained successfully.")
+
+#Evaluating the Model
+y_pred = model.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("Classification Report:\n", classification_report(y_test, y_pred, target_names=["Normal", "Attack"]))
+print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+
+#Save the model
+with open("model.pkl", "wb") as f:
+    pickle.dump(model, f)
+print("Model saved as model.pkl")
