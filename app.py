@@ -13,7 +13,7 @@ st.set_page_config(
     layout="centered",
 )
 
-# CUSTOM CSS — dark terminal aesthetic
+# CUSTOM CSS —  terminal aesthetic
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700&display=swap');
